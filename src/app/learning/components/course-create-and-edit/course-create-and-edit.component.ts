@@ -23,9 +23,9 @@ export class CourseCreateAndEditComponent {
   // Attributes
   @Input() course!: Course;
   @Input() editMode: boolean = false;
-  @Output() courseAdded = new EventEmitter<Course>();
-  @Output() courseUpdated = new EventEmitter<Course>();
-  @Output() editCanceled = new EventEmitter();
+  @Output() courseAddRequested = new EventEmitter<Course>();
+  @Output() courseUpdateRequested = new EventEmitter<Course>();
+  @Output() cancelRequested = new EventEmitter();
   @ViewChild('courseForm', { static: false }) courseForm!: NgForm;
 
   // Methods
@@ -43,7 +43,7 @@ export class CourseCreateAndEditComponent {
   // Event Handlers
   onSubmit() {
     if (this.courseForm.form.valid) {
-      let emitter = this.editMode ? this.courseUpdated : this.courseAdded;
+      let emitter = this.editMode ? this.courseUpdateRequested : this.courseAddRequested;
       emitter.emit(this.course);
       this.resetEditState();
     } else {
@@ -52,7 +52,7 @@ export class CourseCreateAndEditComponent {
   }
 
   onCancel() {
-    this.editCanceled.emit();
+    this.cancelRequested.emit();
     this.resetEditState();
   }
 
