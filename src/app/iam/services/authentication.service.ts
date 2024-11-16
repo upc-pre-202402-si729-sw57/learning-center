@@ -36,7 +36,7 @@ export class AuthenticationService {
   /**
    * Validates if the user is signed in
    */
-  get isIsSignedIn() {
+  get isSignedIn() {
     return this.signedIn.asObservable();
   }
 
